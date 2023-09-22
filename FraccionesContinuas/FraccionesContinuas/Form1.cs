@@ -19,22 +19,28 @@ namespace FraccionesContinuas
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
-            int a, b, temp, i = 1, r, es;
+            int a, b, i = 1, r=0, es=0;
             a = int.Parse(Dato1.Text);
             b = int.Parse(Dato2.Text);
-            while (b != 0)
-            {
-                temp = b;
-                r = a % b;
-                es = a / b;
-                dGW1.Rows.Add(i.ToString(), a.ToString() + " Dividido entre " + b.ToString() + " es " + es.ToString() + " y sobran " + r.ToString(), a.ToString() + "/" + b.ToString() + " = " + es.ToString() + " + 1/" + b.ToString() + "/" + r.ToString());
-                b = a % b;
-                a = temp;
-                i++;
+            int mcd = CalcularMCDRecursivo(a, b);
+            dGW1.Rows.Add(i.ToString(), a.ToString() + " Dividido entre " + b.ToString() + " es " + es.ToString() + " y sobran " + r.ToString(), a.ToString() + "/" + b.ToString() + " = " + es.ToString() + " + 1/" + b.ToString() + "/" + r.ToString());
+            
+            i++;
 
-            }
+            MessageBox.Show("El MCD de " + a + " y " + b + " es " + mcd);
         }
 
+        private int CalcularMCDRecursivo(int a, int b)
+        {
+            if (b == 0)
+            {
+                return a;
+            }
+            else
+            {
+                return CalcularMCDRecursivo(b, a % b);
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             Dato1.Text = "";
